@@ -15,19 +15,22 @@ public class MovingButton implements Runnable {
 		new controller.ButtonClickHandler();
 
 	public MovingButton(int id) {
-		button = new JButton(String.format("MovingButton %d", id));
-
 		this.id = id;
 		this.vector = new model.Vector(config);
 
-		button.setSize(config.buttonSize);
-		button.setVisible(false);
-		button.setActionCommand(String.valueOf(id));
-		button.addActionListener(clickHandler);
+	  setupButton();
 
 		Thread thread = new Thread(this);
 		thread.setName(String.format("MovingButton %d", id));
 		thread.start();
+	}
+
+	private void setupButton() {
+		button = new JButton(String.format("MovingButton %d", id));
+		button.setSize(config.buttonSize);
+		button.setVisible(false);
+		button.setActionCommand(String.valueOf(id));
+		button.addActionListener(clickHandler);
 	}
 
 	public void run() {

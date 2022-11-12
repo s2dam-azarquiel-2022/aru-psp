@@ -35,12 +35,7 @@ public class MainWindow {
 	public MainWindow() {
 		setupFrame();
 		setupContentPane();
-
-		GraphicsEnvironment
-			.getLocalGraphicsEnvironment()
-			.getScreenDevices()[0]
-			.setFullScreenWindow(mainFrame);
-
+		setupScreen();
 		setupMovingButtons();
 	}
 
@@ -58,6 +53,13 @@ public class MainWindow {
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		contentPane.setLayout(null);
 		mainFrame.setContentPane(contentPane);
+	}
+
+	private void setupScreen() {
+		GraphicsEnvironment
+			.getLocalGraphicsEnvironment()
+			.getScreenDevices()[0]
+			.setFullScreenWindow(mainFrame);
 	}
 
 	private void setupMovingButtons() {
