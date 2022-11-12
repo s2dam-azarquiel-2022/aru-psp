@@ -15,7 +15,7 @@ import model.Config;
 public class MainWindow {
 	private JFrame mainFrame;
 	private JPanel contentPane;
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
@@ -40,10 +40,10 @@ public class MainWindow {
 			.getLocalGraphicsEnvironment()
 			.getScreenDevices()[0]
 			.setFullScreenWindow(mainFrame);
-		
+
 		setupMovingButtons();
 	}
-	
+
 	private void setupFrame() {
 		mainFrame = new JFrame();
 		mainFrame.setLocationRelativeTo(null);
@@ -52,14 +52,14 @@ public class MainWindow {
 		mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		mainFrame.setResizable(false);
 	}
-	
+
 	private void setupContentPane() {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		contentPane.setLayout(null);
 		mainFrame.setContentPane(contentPane);
 	}
-	
+
 	private void setupMovingButtons() {
 		MovingButton.config = new model.Config(mainFrame);
 		for (int i = 0; i < Config.MAX_BUTTONS; i++) {

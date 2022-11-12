@@ -13,7 +13,7 @@ public class MovingButton implements Runnable {
 	public static model.Config config;
 	public static controller.ButtonClickHandler clickHandler =
 		new controller.ButtonClickHandler();
-	
+
 	public MovingButton(int id) {
 		button = new JButton(String.format("MovingButton %d", id));
 
@@ -24,7 +24,7 @@ public class MovingButton implements Runnable {
 		button.setVisible(false);
 		button.setActionCommand(String.valueOf(id));
 		button.addActionListener(clickHandler);
-		
+
 		Thread thread = new Thread(this);
 		thread.setName(String.format("MovingButton %d", id));
 		thread.start();

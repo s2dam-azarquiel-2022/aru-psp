@@ -6,9 +6,9 @@ public class Vector {
 	public int iHat;
 	public int jHat;
 	private model.Config config;
-	
+
 	private static int random(int max) { return (int) (Math.random() * (max + 1)); };
-	
+
 	public Vector(model.Config config) {
 		this.config = config;
 		this.x = random(config.windowSize.width - config.buttonSize.width);
@@ -16,7 +16,7 @@ public class Vector {
 		this.iHat = random(5) + 1;
 		this.jHat = random(5) + 1;
 	}
-	
+
 	public void move() {
 		x += iHat;
 		y += jHat;

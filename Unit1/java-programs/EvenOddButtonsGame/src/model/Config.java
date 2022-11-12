@@ -20,7 +20,7 @@ public class Config {
 		);
 		this.state = 0;
 	}
-	
+
 	public synchronized void checkState(int buttonID) {
 		if (buttonID % 2 == 0) {
 			if (state == 0) state = 1;
@@ -32,7 +32,7 @@ public class Config {
 
 		notifyAll();
 	}
-	
+
 	public synchronized boolean move(int buttonID) {
 		boolean isEven = buttonID % 2 == 0;
 		return ((isEven && state != 1) || (!isEven && state != 2));
