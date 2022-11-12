@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Dimension;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Config {
@@ -11,8 +12,8 @@ public class Config {
 	public Dimension buttonSize;
 	private int state;
 
-	public Config(view.MainWindow mainWindow) {
-		this.windowSize = mainWindow.getSize();
+	public Config(JFrame mainFrame) {
+		this.windowSize = mainFrame.getSize();
 		this.buttonSize = new Dimension(
 			this.windowSize.width / 10,
 			this.windowSize.height / 10

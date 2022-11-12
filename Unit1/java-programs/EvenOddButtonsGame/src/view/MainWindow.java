@@ -12,7 +12,8 @@ import javax.swing.border.EmptyBorder;
 
 import model.Config;
 
-public class MainWindow extends JFrame {
+public class MainWindow {
+	private JFrame mainFrame;
 	private JPanel contentPane;
 	
 	public static void main(String[] args) {
@@ -23,9 +24,7 @@ public class MainWindow extends JFrame {
 					UIManager.setLookAndFeel(
 						UIManager.getSystemLookAndFeelClassName()
 					);
-					MainWindow frame = new MainWindow();
-					frame.setLocationRelativeTo(null);
-					frame.setVisible(true);
+					MainWindow mainWindow = new MainWindow();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -34,28 +33,35 @@ public class MainWindow extends JFrame {
 	}
 
 	public MainWindow() {
-		this.setTitle("MainWindow");
-		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		this.setResizable(false);
-		this.setupContentPane();
+		setupFrame();
+		setupContentPane();
 
 		GraphicsEnvironment
 			.getLocalGraphicsEnvironment()
 			.getScreenDevices()[0]
-			.setFullScreenWindow(this);
+			.setFullScreenWindow(mainFrame);
 		
 		setupMovingButtons();
+	}
+	
+	private void setupFrame() {
+		mainFrame = new JFrame();
+		mainFrame.setLocationRelativeTo(null);
+		mainFrame.setVisible(true);
+		mainFrame.setTitle("MainWindow");
+		mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		mainFrame.setResizable(false);
 	}
 	
 	private void setupContentPane() {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		contentPane.setLayout(null);
-		this.setContentPane(contentPane);
+		mainFrame.setContentPane(contentPane);
 	}
 	
 	private void setupMovingButtons() {
-		MovingButton.config = new model.Config(this);
+		MovingButton.config = new model.Config(mainFrame);
 		for (int i = 0; i < Config.MAX_BUTTONS; i++) {
 			contentPane.add(new MovingButton(i));
 		}
