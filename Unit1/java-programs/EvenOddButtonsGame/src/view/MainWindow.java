@@ -63,7 +63,7 @@ public class MainWindow {
 	private void setupMovingButtons() {
 		MovingButton.config = new model.Config(mainFrame);
 		for (int i = 0; i < Config.MAX_BUTTONS; i++) {
-			contentPane.add(new MovingButton(i));
+			contentPane.add((new MovingButton(i)).button);
 		}
 	}
 }
