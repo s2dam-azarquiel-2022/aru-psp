@@ -6,12 +6,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 public class MovingBtn extends JButton implements Runnable, ActionListener {
-	private Thread hilo;
-	private boolean nosalir;
+	private Thread thread;
+	private boolean alive;
 	private VectorImproved vec;
-	private static ClickCount clickCount = new ClickCount();
 	public int localClickCount = 0;
 	private MovingBtn[] btns;
+	private static Shared shared = new Shared();
 
 	public MovingBtn(
 		int id,
@@ -26,16 +26,19 @@ public class MovingBtn extends JButton implements Runnable, ActionListener {
 		this.btns = btns;
 
 		vec = new VectorImproved(size, d);
-		hilo = new Thread(this);
-		hilo.setName(String.valueOf(id));
-		hilo.start();
+		thread = new Thread(this);
+		thread.setName(String.valueOf(id));
+		thread.start();
 		addActionListener(this);
 	}
 
 	public void run() {
-		nosalir = true;
+		alive = true;
 		setVisible(true);
-		while (nosalir) {
+		while (alive) {
+			synchronized (this) {
+				while (!shared.move(isEven())) try {shared.wait();} catch (Exception e) {}
+			}
 			vec.move();
 			this.setLocation(vec.x, vec.y);
 			try { Thread.sleep(33); } catch (InterruptedException e) { }
@@ -44,16 +47,19 @@ public class MovingBtn extends JButton implements Runnable, ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		clickCount.inc();
+		shared.clickCount.inc();
 		localClickCount++;
-		for (MovingBtn btn : btns)
-			btn.setText(String.format("%02d:%02d", btn.localClickCount, clickCount.getClickCount()));
-		checkEven();
+		for (MovingBtn btn : btns) {
+			btn.setText(String.format(
+				"%02d:%02d",
+				btn.localClickCount, shared.clickCount.getClickCount()
+			));
+		}
+
+		shared.checkState(isEven());
 	}
 	
-	private synchronized void checkEven() {
-		if (Integer.valueOf(hilo.getName()) % 2 == 0)
-			try { Thread.sleep(2000); }
-			catch (InterruptedException e) { e.printStackTrace(); }
+	private boolean isEven() {
+		return Integer.valueOf(thread.getName()) % 2 == 0;
 	}
 }
