@@ -24,7 +24,7 @@ public class MainWindow {
 					UIManager.setLookAndFeel(
 						UIManager.getSystemLookAndFeelClassName()
 					);
-					MainWindow mainWindow = new MainWindow();
+					new MainWindow();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
