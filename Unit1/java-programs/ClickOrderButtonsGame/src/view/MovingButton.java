@@ -3,19 +3,21 @@ package view;
 import javax.swing.JButton;
 
 import controller.ButtonClickHandler;
+import model.Config;
+import model.Shared;
+import model.Vector;
 
 public class MovingButton implements Runnable {
 	public JButton button;
 	private int id;
-	private model.Vector vector;
+	private Vector vector;
 
-	public static model.Config config;
-	public static controller.ButtonClickHandler clickHandler =
-		new controller.ButtonClickHandler();
+	public static ButtonClickHandler clickHandler;
+	public static Shared shared;
 
 	public MovingButton(int id) {
 		this.id = id;
-		this.vector = new model.Vector(config);
+		this.vector = new model.Vector();
 
 	  setupButton();
 
@@ -26,7 +28,7 @@ public class MovingButton implements Runnable {
 
 	private void setupButton() {
 		button = new JButton(String.format("MovingButton %d", id));
-		button.setSize(config.buttonSize);
+		button.setSize(Config.buttonSize);
 		button.setVisible(false);
 		button.setActionCommand(String.valueOf(id));
 		button.addActionListener(clickHandler);
@@ -34,11 +36,15 @@ public class MovingButton implements Runnable {
 
 	public void run() {
 		button.setVisible(true);
-		while (config.alive) {
+		while (shared.alive) {
 			synchronized (this) {
-				while (!config.move(id)) {
-					try { config.wait(); }
+				while (!shared.move(id)) {
+					try { shared.wait(); }
 					catch (Exception e) {}
+					if (!shared.alive) {
+					  Config.velocityMultiplier = 0;
+					  break;
+					}
 				}
 			}
 			vector.move();

@@ -10,7 +10,9 @@ import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
+import controller.ButtonClickHandler;
 import model.Config;
+import model.Shared;
 
 public class MainWindow {
 	private JFrame mainFrame;
@@ -63,7 +65,9 @@ public class MainWindow {
 	}
 
 	private void setupMovingButtons() {
-		MovingButton.config = new model.Config(mainFrame);
+		new Config(mainFrame);
+	  MovingButton.clickHandler =  new ButtonClickHandler();
+	  MovingButton.shared =  new Shared();
 		for (int i = 0; i < Config.MAX_BUTTONS; i++) {
 			contentPane.add((new MovingButton(i)).button);
 		}

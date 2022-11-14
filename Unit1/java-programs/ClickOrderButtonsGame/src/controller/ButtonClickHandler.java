@@ -8,6 +8,6 @@ import view.MovingButton;
 public class ButtonClickHandler implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		MovingButton.config.checkState(Integer.valueOf(event.getActionCommand()));
+		MovingButton.shared.checkState(Integer.valueOf(event.getActionCommand()));
 	}
 }
