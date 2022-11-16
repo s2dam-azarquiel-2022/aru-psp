@@ -10,7 +10,7 @@ import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
-import controller.ButtonClickHandler;
+import handler.ButtonClickHandler;
 import model.Config;
 import model.Shared;
 

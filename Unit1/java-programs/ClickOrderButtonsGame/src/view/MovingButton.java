@@ -2,7 +2,7 @@ package view;
 
 import javax.swing.JButton;
 
-import controller.ButtonClickHandler;
+import handler.ButtonClickHandler;
 import model.Config;
 import model.Shared;
 import model.Vector;
@@ -39,12 +39,8 @@ public class MovingButton implements Runnable {
 		while (shared.alive) {
 			synchronized (this) {
 				while (!shared.move(id)) {
-					try { shared.wait(); }
-					catch (Exception e) {}
-					if (!shared.alive) {
-					  Config.velocityMultiplier = 0;
-					  break;
-					}
+					try { shared.wait(); } catch (Exception e) {}
+					if (!shared.alive) { Config.velocityMultiplier = 0; break; }
 				}
 			}
 			vector.move();
