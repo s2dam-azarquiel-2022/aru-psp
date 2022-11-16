@@ -11,7 +11,7 @@ public class Config {
 	public static Dimension windowSize;
 	public static Dimension buttonSize;
 
-	public Config(JFrame mainFrame) {
+	public static void setupConfig(JFrame mainFrame) {
 		Config.windowSize = mainFrame.getSize();
 		Config.buttonSize = new Dimension(
 			Config.windowSize.width / 10,

@@ -65,7 +65,7 @@ public class MainWindow {
 	}
 
 	private void setupMovingButtons() {
-		new Config(mainFrame);
+		Config.setupConfig(mainFrame);
 	  MovingButton.clickHandler =  new ButtonClickHandler();
 	  MovingButton.shared =  new Shared();
 		for (int i = 0; i < Config.MAX_BUTTONS; i++) {
