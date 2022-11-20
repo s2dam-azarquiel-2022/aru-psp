@@ -103,6 +103,7 @@ public class Window implements Runnable, ActionListener {
   }
 
   private void checkTime() {
+    if (state == 0) return;
     if (state == 1) {
       timePassed += Config.SLEEP_TIME;
       if (timePassed >= 1000) {
