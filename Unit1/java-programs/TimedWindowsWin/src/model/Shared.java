@@ -10,21 +10,20 @@ public class Shared {
     this.state = 0;
     this.alive = true;
 
-    secondStateEvent = new TimedEvent(2000) {
-      public void codeAfter() {
-        state = 2;
-        notifyAll();
-      }
-    };
-
     firstStateEvent = new TimedEvent(2000) {
       public void codeAfter() {
         state = 1;
-        notifyAll();
         if (secondStateEvent.isAlive()) notifyEvent(secondStateEvent);
         else secondStateEvent.start();
       }
     };
+
+    secondStateEvent = new TimedEvent(2000) {
+      public void codeAfter() {
+        state = 2;
+      }
+    };
+
     firstStateEvent.start();
   }
 
@@ -34,14 +33,16 @@ public class Shared {
 
   public synchronized void checkState(int windowID) {
     switch (state) {
-    case 2: if (windowID == 3) state = 3; break;
-    case 3: {
+    case 2:
+      if (windowID == 3) state = 3;
+      notifyAll();
+      break;
+    case 3:
       if (windowID == 4) state = 4;
       else { state = 0; notifyEvent(firstStateEvent); }
+      notifyAll();
       break;
     }
-    }
-    notifyAll();
   }
 
   public synchronized boolean move(int windowID) {
